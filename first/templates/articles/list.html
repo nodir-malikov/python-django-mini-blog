@@ -1,0 +1,38 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}Last articles{% endblock %}
+
+{% block content %}
+
+    {% if latest_articles_list %}
+
+        <div class="d-flex justify-content-start flex-wrap">
+            {% for a in latest_articles_list %}
+                <div class="card col-3 px-5 py-5 mb-2 mx-1 mt-2">
+
+                    <a href="{% url 'articles:detail' a.id %}">
+                        <p>{{ a.article_title }}</p>
+                    </a>
+
+                    <br>
+
+                    <span>
+                        {% if a.was_published_recently %}
+                            <span class="new px-3">New article!</span>
+                        {% endif %}
+                        <br>
+                        <br>
+                        <em>{{ a.pub_date }}</em>
+
+                    </span>
+
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+
+        Nothing found :(
+
+    {% endif %}
+
+{% endblock %}

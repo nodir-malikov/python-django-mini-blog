@@ -1,0 +1,57 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}{{ article.article_title }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ article.article_title }}</h2>
+    {% if article.was_published_recently %}
+        <span class="new px-3">New article!</span>
+    {% endif %}
+
+    <p class="mt-4">{{ article.article_text }}</p>
+    <br>
+    <span>
+        <em>{{ article.pub_date }}</em>
+    </span>
+
+    <hr>
+    {% if latest_comments_list %}
+        <div class="block">
+            <h4 class="cs">Comments:</h4>
+        </div>
+        {% for c in latest_comments_list %}
+            <span>
+                    <strong>{{ c.author_name }}</strong>
+                    <p>{{ c.comment_text }}</p>
+                </span>
+            <hr>
+        {% endfor %}
+    {% else %}
+        No comments yet...
+        <hr>
+    {% endif %}
+
+    <form action="{% url 'articles:leave_comment' article.id %}" method="POST">
+
+        {% csrf_token %}
+
+        <label class="form-label">
+            <input class="form-control" type="text" required placeholder="Your name" name="name">
+        </label>
+
+        <br>
+        <br>
+
+        <label class="form-label">
+            <textarea class="form-control" required placeholder="Your comment" name="text" cols="30"
+                      rows="10"></textarea>
+        </label>
+
+        <br>
+        <br>
+
+        <button class="btn btn-primary" type="submit">Leave comment</button>
+    </form>
+
+{% endblock %}
