@@ -13,10 +13,10 @@ Run app command:
 
 
 
-Admin panel: localhost:8080/admin
+Admin panel: localhost:8000/admin
 
 Login: admin
 
 Password: admin
 
-Articles: localhost:8080/articles
+Articles: localhost:8000/articles
